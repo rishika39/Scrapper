@@ -2,13 +2,9 @@ plugins {
     id 'java'
 }
 
-
-
-// Apply the java plugin to add support for Java
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'checkstyle'
-
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -20,10 +16,14 @@ repositories {
 dependencies {
 
     testImplementation 'org.testng:testng:6.9.10'
-
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    
+    // Selenium dependency
     implementation 'org.seleniumhq.selenium:selenium-java:4.21.0'
 
+    // Jackson dependencies
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
 }
 
 buildDir = 'build'
@@ -45,16 +45,14 @@ test {
     }
 
     testLogging {
-		events "PASSED", "SKIPPED", "FAILED", "STANDARD_OUT", "STANDARD_ERROR"
+        events "PASSED", "SKIPPED", "FAILED", "STANDARD_OUT", "STANDARD_ERROR"
         exceptionFormat = 'full'
 
-        // Optionally do:
         showStackTraces = true
-	}
+    }
 
     testLogging.showStandardStreams = true
-    test.outputs.upToDateWhen {false}
-
+    test.outputs.upToDateWhen { false }
 }
 
 mainClassName = 'demo.App'
@@ -68,9 +66,9 @@ checkstyle {
 
 tasks.withType(Checkstyle) {
     reports {
-            xml.required = true
-            html.required = false
-        }
+        xml.required = true
+        html.required = false
+    }
 }
 
 test {
